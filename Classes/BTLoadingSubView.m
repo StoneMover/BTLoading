@@ -11,6 +11,16 @@
 
 @implementation BTLoadingSubView
 
+- (instancetype)init{
+    self=[super init];
+    self.labelCenterYConstant=-20;
+    self.imgViewTopLabelConstant=10;
+    self.btnW=110;
+    self.btnH=50;
+    self.btnTopLabelConstant=35;
+    return self;
+}
+
 
 - (void)initSubView{
     [self createLabel];
@@ -23,12 +33,12 @@
     self.label=[[UILabel alloc]init];
     self.label.textAlignment=NSTextAlignmentCenter;
     self.label.numberOfLines=0;
-//    self.label.text=self.loadingStr;
+    //    self.label.text=self.loadingStr;
     self.label.translatesAutoresizingMaskIntoConstraints=NO;
     self.label.font=[UIFont systemFontOfSize:17 weight:UIFontWeightMedium];
     self.label.textColor=[UIColor colorWithRed:120/255.0 green:121/255.0 blue:122/255.0 alpha:1];
     [self addSubview:self.label];
-    NSLayoutConstraint * centerY=[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:-20];
+    NSLayoutConstraint * centerY=[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:self.labelCenterYConstant];
     NSLayoutConstraint * left=[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:40];
     NSLayoutConstraint * right=[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.label attribute:NSLayoutAttributeRight multiplier:1 constant:40];
     [self addConstraints:@[centerY,left,right]];
@@ -38,7 +48,7 @@
     self.imgView=[[UIImageView alloc]init];
     [self addSubview:self.imgView];
     self.imgView.translatesAutoresizingMaskIntoConstraints=NO;
-    NSLayoutConstraint * top=[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.imgView attribute:NSLayoutAttributeBottom multiplier:1 constant:10];
+    NSLayoutConstraint * top=[NSLayoutConstraint constraintWithItem:self.label attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.imgView attribute:NSLayoutAttributeBottom multiplier:1 constant:self.imgViewTopLabelConstant];
     
     NSLayoutConstraint * centerX=[NSLayoutConstraint constraintWithItem:self.imgView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
     
@@ -60,12 +70,12 @@
     [self.btn addTarget:self action:@selector(reloadClick) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.btn];
     
-    NSLayoutConstraint * top=[NSLayoutConstraint constraintWithItem:self.btn attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.label attribute:NSLayoutAttributeBottom multiplier:1 constant:35];
+    NSLayoutConstraint * top=[NSLayoutConstraint constraintWithItem:self.btn attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.label attribute:NSLayoutAttributeBottom multiplier:1 constant:self.btnTopLabelConstant];
     
     NSLayoutConstraint * centerX=[NSLayoutConstraint constraintWithItem:self.btn attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
     
-    NSLayoutConstraint * x=[NSLayoutConstraint constraintWithItem:self.btn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:110];
-    NSLayoutConstraint * y=[NSLayoutConstraint constraintWithItem:self.btn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:45];
+    NSLayoutConstraint * x=[NSLayoutConstraint constraintWithItem:self.btn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:self.btnW];
+    NSLayoutConstraint * y=[NSLayoutConstraint constraintWithItem:self.btn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:self.btnH];
     
     [self addConstraint:top];
     [self addConstraint:centerX];

@@ -1,6 +1,0 @@
-framework module BTLoading {
-  umbrella header "BTLoading-umbrella.h"
-
-  export *
-  module * { export * }
-}

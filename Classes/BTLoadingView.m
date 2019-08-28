@@ -68,6 +68,12 @@
     [self addSubview:self.viewError];
 }
 
+- (void)layoutSubviews{
+    self.viewLoading.frame=self.bounds;
+    self.viewEmpty.frame=self.bounds;
+    self.viewError.frame=self.bounds;
+}
+
 - (void)reloadClick{
     if (self.block) {
         self.block();
@@ -177,5 +183,5 @@
 
 
 
-    
+
 @end
