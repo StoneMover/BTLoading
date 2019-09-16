@@ -39,7 +39,7 @@ static const char BTLoadingHelpKey;
     if(isLoading){
         [self showLoading];
     }else{
-        [self.loadingHelp dismiss];
+        [self.loadingHelp dismiss:NO];
     }
 }
 

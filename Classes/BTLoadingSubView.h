@@ -35,7 +35,13 @@
 
 - (void)initSubView;
 
-- (void)show:(NSString*)title img:(UIImage*)img;
+- (void)show:(NSString*)title img:(UIImage*)img btnStr:(NSString*)btnStr;
+
+- (void)createLabel;
+
+- (void)createImg;
+
+- (void)createBtn;
 
 
 @end

@@ -27,11 +27,13 @@ typedef void(^BTLoadingBlock)(void);
 -(void)showLoading:(NSString*)loadingStr withImg:(UIImage*)img;
 
 #pragma mark 显示空界面
+-(void)showEmpty:(NSString*)emptyStr withImg:(UIImage*)img btnStr:(NSString*)btnStr;
 -(void)showEmpty:(NSString*)emptyStr withImg:(UIImage*)img;
 -(void)showEmpty:(NSString*)emptyStr;
 -(void)showEmpty;
 
 #pragma mark 显示错误界面,如服务器错误,网络错误等界面
+-(void)showError:(NSString*)errorStr withImg:(UIImage*)img btnStr:(NSString*)btnStr;
 -(void)showError:(NSString*)errorStr withImg:(UIImage*)img;
 -(void)showError:(NSString*)errorStr;
 -(void)showError;

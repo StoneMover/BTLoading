@@ -74,13 +74,23 @@
     
     NSLayoutConstraint * centerX=[NSLayoutConstraint constraintWithItem:self.btn attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
     
-    NSLayoutConstraint * x=[NSLayoutConstraint constraintWithItem:self.btn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:self.btnW];
-    NSLayoutConstraint * y=[NSLayoutConstraint constraintWithItem:self.btn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:self.btnH];
+    
     
     [self addConstraint:top];
     [self addConstraint:centerX];
-    [self.btn addConstraint:x];
-    [self.btn addConstraint:y];
+    
+    if (self.btnW!=-1) {
+        NSLayoutConstraint * x=[NSLayoutConstraint constraintWithItem:self.btn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:self.btnW];
+        [self.btn addConstraint:x];
+    }
+    
+    if (self.btnH!=-1) {
+        NSLayoutConstraint * y=[NSLayoutConstraint constraintWithItem:self.btn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:self.btnH];
+        
+        [self.btn addConstraint:y];
+    }
+    
+    
 }
 
 
@@ -91,7 +101,7 @@
 }
 
 
-- (void)show:(NSString*)title img:(UIImage*)img{
+- (void)show:(NSString*)title img:(UIImage*)img btnStr:(NSString*)btnStr{
     if (title) {
         self.label.text=title;
     }
@@ -99,6 +109,11 @@
     if (img) {
         self.imgView.image=img;
     }
+    
+    if (btnStr) {
+        [self.btn setTitle:btnStr forState:UIControlStateNormal];
+    }
+    
 }
 
 @end
