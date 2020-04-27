@@ -11,7 +11,7 @@
 
 @implementation UIImage (GIF)
 
-+ (UIImage *)animatedGIFWithData:(NSData *)data {
++ (UIImage *)bt_animatedGIFWithData:(NSData *)data {
     if (!data) {
         return nil;
     }
@@ -33,7 +33,7 @@
         for (size_t i = 0; i < count; i++) {
             CGImageRef image = CGImageSourceCreateImageAtIndex(source, i, NULL);
 
-            duration += [self frameDurationAtIndex:i source:source];
+            duration += [self bt_frameDurationAtIndex:i source:source];
 
             [images addObject:[UIImage imageWithCGImage:image scale:[UIScreen mainScreen].scale orientation:UIImageOrientationUp]];
 
@@ -52,7 +52,7 @@
     return animatedImage;
 }
 
-+ (float)frameDurationAtIndex:(NSUInteger)index source:(CGImageSourceRef)source {
++ (float)bt_frameDurationAtIndex:(NSUInteger)index source:(CGImageSourceRef)source {
     float frameDuration = 0.1f;
     CFDictionaryRef cfFrameProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil);
     NSDictionary *frameProperties = (__bridge NSDictionary *)cfFrameProperties;
@@ -83,7 +83,7 @@
     return frameDuration;
 }
 
-+ (UIImage *)animatedGIFNamed:(NSString *)name bundle:(NSBundle*)b{
++ (UIImage *)bt_animatedGIFNamed:(NSString *)name bundle:(NSBundle*)b{
     CGFloat scale = [UIScreen mainScreen].scale;
     NSString * resourcePath=[b resourcePath];
     NSString * bundlePath=[resourcePath stringByAppendingPathComponent:@"BTLoadingBundle.bundle"];
@@ -95,7 +95,7 @@
         NSData *data = [NSData dataWithContentsOfFile:retinaPath];
         
         if (data) {
-            return [UIImage animatedGIFWithData:data];
+            return [UIImage bt_animatedGIFWithData:data];
         }
         
         NSString *path = [bundle pathForResource:name ofType:@"gif"];
@@ -103,7 +103,7 @@
         data = [NSData dataWithContentsOfFile:path];
         
         if (data) {
-            return [UIImage animatedGIFWithData:data];
+            return [UIImage bt_animatedGIFWithData:data];
         }
         
         return [UIImage imageNamed:name];
@@ -114,14 +114,14 @@
         NSData *data = [NSData dataWithContentsOfFile:path];
         
         if (data) {
-            return [UIImage animatedGIFWithData:data];
+            return [UIImage bt_animatedGIFWithData:data];
         }
         
         return [UIImage imageNamed:name];
     }
 }
 
-- (UIImage *)animatedImageByScalingAndCroppingToSize:(CGSize)size {
+- (UIImage *)bt_animatedImageByScalingAndCroppingToSize:(CGSize)size {
     if (CGSizeEqualToSize(self.size, size) || CGSizeEqualToSize(size, CGSizeZero)) {
         return self;
     }

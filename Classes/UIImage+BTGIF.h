@@ -10,11 +10,11 @@
 
 @interface UIImage (BTGIF)
 
-+ (UIImage *)animatedGIFNamed:(NSString *)name bundle:(NSBundle*)b;
++ (UIImage *)bt_animatedGIFNamed:(NSString *)name bundle:(NSBundle*)b;
 
-+ (UIImage *)animatedGIFWithData:(NSData *)data;
++ (UIImage *)bt_animatedGIFWithData:(NSData *)data;
 
-- (UIImage *)animatedImageByScalingAndCroppingToSize:(CGSize)size;
+- (UIImage *)bt_animatedImageByScalingAndCroppingToSize:(CGSize)size;
 
 @end
 

@@ -40,7 +40,7 @@ static BTLoadingConfig * help=nil;
     self.loadingStr=@"玩命加载中...";
     self.emptyStr=@"貌似这里什么都没有";
     self.errorInfo=@"似乎断开了与互联网的连接";
-    self.loadingGif=[UIImage animatedGIFNamed:@"bt_loading_icon" bundle:[NSBundle bundleForClass:[self class]]];
+    self.loadingGif=[UIImage bt_animatedGIFNamed:@"bt_loading_icon" bundle:[NSBundle bundleForClass:[self class]]];
     self.errorImg=[self imageBundleName:@"bt_loading_empty"];
     self.emptyImg=[self imageBundleName:@"bt_loading_error"];
     [self initNotification];
