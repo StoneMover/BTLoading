@@ -99,9 +99,16 @@
             break;
         case 7:
         {
-            [BTProgress showLoading];
+            [BTProgress showLoading:@"测试的哦测试的哦"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [BTProgress hideLoading];
+                [BTProgress showLoading:@"测试的哦" forceCloseLast:NO];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [BTProgress showLoading:nil forceCloseLast:NO];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [BTProgress hideLoading];
+                    });
+                });
+                
             });
         }
             break;

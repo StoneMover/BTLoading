@@ -32,15 +32,49 @@
 }
 */
 
++ (BTProgress*)showLoading:(NSString*)str forceCloseLast:(BOOL)forceCloseLast{
+    if (forceCloseLast) {
+        BTProgress * progress=[[BTProgress alloc]init:str];
+        UIWindow * window=[UIApplication sharedApplication].delegate.window;
+        [progress show:window];
+        return progress;
+    }else{
+        UIView * view = [UIApplication sharedApplication].delegate.window;
+        BTProgress * progress = nil;
+        for (UIView * v in view.subviews) {
+            if ([v isKindOfClass:[BTProgress class]]) {
+                progress = ((BTProgress*)v);
+                break;
+            }
+        }
+        if (progress == nil) {
+            progress= [[BTProgress alloc]init:str];
+            [progress show:view];
+        }else{
+            [progress setValue:str forKey:@"content"];
+            [progress layoutSubviews];
+        }
+        
+        
+        return progress;
+    }
+    
+}
+
 + (BTProgress*)showLoading:(NSString*)str{
-    BTProgress * progress=[[BTProgress alloc]init:str];
-    UIWindow * window=[UIApplication sharedApplication].delegate.window;
-    [progress show:window];
-    return progress;
+    return [self showLoading:str forceCloseLast:YES];
 }
 
 + (BTProgress*)showLoading{
-    return [self showLoading:nil];
+    return [self showLoading:nil forceCloseLast:YES];
+}
+
++ (BTProgress*)showLoadingFollow{
+    return [self showLoading:nil forceCloseLast:NO];
+}
+
++ (BTProgress*)showLoadingFollow:(NSString*)str{
+    return [self showLoading:str forceCloseLast:NO];
 }
 
 + (void)hideLoading{
@@ -84,9 +118,6 @@
 }
 
 - (void)initLabel{
-    if (!self.content) {
-        return;
-    }
     self.loadingLabel=[[UILabel alloc] init];
     self.loadingLabel.textColor=[UIColor whiteColor];
     self.loadingLabel.font=[UIFont systemFontOfSize:16 weight:UIFontWeightBold];
@@ -103,6 +134,12 @@
     [self.rootView addSubview:self.loadingLabel];
 }
 
+- (void)setContent:(NSString *)content{
+    _content = content;
+    self.loadingLabel.text = content;
+    [self.loadingLabel sizeToFit];
+}
+
 - (void)layoutSubviews{
     [self layoutLoading];
 }
@@ -111,7 +148,7 @@
     CGFloat width=85;
     CGFloat height=80;
     
-    if (self.loadingLabel) {
+    if (self.content) {
         CGFloat padding=15;
         CGFloat labelTop=6;
         if (self.loadingLabel.frame.size.width+padding*2>width) {

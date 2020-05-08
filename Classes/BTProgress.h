@@ -15,8 +15,20 @@ typedef NS_ENUM(NSInteger,BTProgressStyle) {
 
 @interface BTProgress : UIView
 
+//forceCloseLast:是否强制关闭上一个Loading
++ (BTProgress*)showLoading:(NSString*)str forceCloseLast:(BOOL)forceCloseLast;
+
 + (BTProgress*)showLoading:(NSString*)str;
+
 + (BTProgress*)showLoading;
+
+//如果前面有一个loading，则会直接返回上一个的对象，并且不会移除上一个loading然后新建一个loading
++ (BTProgress*)showLoadingFollow;
+
++ (BTProgress*)showLoadingFollow:(NSString*)str;
+
+
+
 + (void)hideLoading;
 
 - (void)show:(UIView*)view ;
