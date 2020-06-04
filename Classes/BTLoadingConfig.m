@@ -7,7 +7,7 @@
 //
 
 #import "BTLoadingConfig.h"
-#import "UIImage+BTGIF.m"
+#import "UIImage+BTGif.h"
 
 static BTLoadingConfig * help=nil;
 

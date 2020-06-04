@@ -10,8 +10,8 @@
 #define BTLoading_h
 
 #import "BTToast.h"
-#import "UIViewController+BTLoading.h"
-#import "BTLoadingView.h"
 #import "BTProgress.h"
+#import "UIViewController+BTLoading.h"
+#import "UIImage+BTGif.h"
 
 #endif /* BTLoading_h */

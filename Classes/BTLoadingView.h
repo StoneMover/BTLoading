@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BTLoadingConfig.h"
 #import "BTLoadingSubView.h"
-#import "UIImage+BTGIF.h"
+
 
 typedef void(^BTLoadingBlock)(void);
 

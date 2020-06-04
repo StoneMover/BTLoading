@@ -1,15 +1,14 @@
 //
-//  UIImage+GIF.m
-//  LBGIFImage
+//  UIImage+BTGif.m
+//  BTLoadingTest
 //
-//  Created by Laurin Brandner on 06.01.12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by apple on 2020/6/4.
+//  Copyright © 2020 stonemover. All rights reserved.
 //
 
-#import "UIImage+BTGIF.h"
-#import <ImageIO/ImageIO.h>
+#import "UIImage+BTGif.h"
 
-@implementation UIImage (GIF)
+@implementation UIImage (BTGif)
 
 + (UIImage *)bt_animatedGIFWithData:(NSData *)data {
     if (!data) {
@@ -50,37 +49,6 @@
     CFRelease(source);
 
     return animatedImage;
-}
-
-+ (float)bt_frameDurationAtIndex:(NSUInteger)index source:(CGImageSourceRef)source {
-    float frameDuration = 0.1f;
-    CFDictionaryRef cfFrameProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil);
-    NSDictionary *frameProperties = (__bridge NSDictionary *)cfFrameProperties;
-    NSDictionary *gifProperties = frameProperties[(NSString *)kCGImagePropertyGIFDictionary];
-
-    NSNumber *delayTimeUnclampedProp = gifProperties[(NSString *)kCGImagePropertyGIFUnclampedDelayTime];
-    if (delayTimeUnclampedProp) {
-        frameDuration = [delayTimeUnclampedProp floatValue];
-    }
-    else {
-
-        NSNumber *delayTimeProp = gifProperties[(NSString *)kCGImagePropertyGIFDelayTime];
-        if (delayTimeProp) {
-            frameDuration = [delayTimeProp floatValue];
-        }
-    }
-
-    // Many annoying ads specify a 0 duration to make an image flash as quickly as possible.
-    // We follow Firefox's behavior and use a duration of 100 ms for any frames that specify
-    // a duration of <= 10 ms. See <rdar://problem/7689300> and <http://webkit.org/b/36082>
-    // for more information.
-
-    if (frameDuration < 0.011f) {
-        frameDuration = 0.100f;
-    }
-
-    CFRelease(cfFrameProperties);
-    return frameDuration;
 }
 
 + (UIImage *)bt_animatedGIFNamed:(NSString *)name bundle:(NSBundle*)b{
@@ -158,5 +126,38 @@
     return [UIImage animatedImageWithImages:scaledImages duration:self.duration];
 }
 
-@end
++ (float)bt_frameDurationAtIndex:(NSUInteger)index source:(CGImageSourceRef)source {
+    float frameDuration = 0.1f;
+    CFDictionaryRef cfFrameProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil);
+    NSDictionary *frameProperties = (__bridge NSDictionary *)cfFrameProperties;
+    NSDictionary *gifProperties = frameProperties[(NSString *)kCGImagePropertyGIFDictionary];
 
+    NSNumber *delayTimeUnclampedProp = gifProperties[(NSString *)kCGImagePropertyGIFUnclampedDelayTime];
+    if (delayTimeUnclampedProp) {
+        frameDuration = [delayTimeUnclampedProp floatValue];
+    }
+    else {
+
+        NSNumber *delayTimeProp = gifProperties[(NSString *)kCGImagePropertyGIFDelayTime];
+        if (delayTimeProp) {
+            frameDuration = [delayTimeProp floatValue];
+        }
+    }
+
+    // Many annoying ads specify a 0 duration to make an image flash as quickly as possible.
+    // We follow Firefox's behavior and use a duration of 100 ms for any frames that specify
+    // a duration of <= 10 ms. See <rdar://problem/7689300> and <http://webkit.org/b/36082>
+    // for more information.
+
+    if (frameDuration < 0.011f) {
+        frameDuration = 0.100f;
+    }
+
+    CFRelease(cfFrameProperties);
+    return frameDuration;
+}
+
+
+
+
+@end

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "BTLoading"
-  s.version          = "0.1.3"
+  s.version          = "0.1.4"
   s.summary          = "An easy Loading View"
   s.homepage         = "https://github.com/StoneMover/BTLoading"
   s.license          = 'MIT'
@@ -10,5 +10,5 @@ Pod::Spec.new do |s|
   s.source_files     = 'Classes/**/*.{h,m}'
   s.resource = 'Assets/BTLoadingBundle.bundle'
   s.requires_arc     = true
-  s.public_header_files = 'Pod/Classes/BTLoading.h'
+  s.public_header_files = 'Classes/**/*.h'
 end
