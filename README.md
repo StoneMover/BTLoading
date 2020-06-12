@@ -6,10 +6,10 @@
 *  菊花加载```loading```
 *  详情界面请求挡板```loading```
 
-<!--![Untitled.gif](https://upload-images.jianshu.io/upload_images/1243802-5df740b9069b25f2.gif?imageMogr2/auto-orient/strip)-->
+[Untitled.gif](https://upload-images.jianshu.io/upload_images/1243802-5df740b9069b25f2.gif?imageMogr2/auto-orient/strip)
 
 
-#如何使用
+# 如何使用
 ```
 pod install 'BTLoading'
 ```
