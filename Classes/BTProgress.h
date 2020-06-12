@@ -27,7 +27,7 @@ typedef NS_ENUM(NSInteger,BTProgressStyle) {
 
 + (BTProgress*)showLoadingFollow:(NSString*)str;
 
-
+- (instancetype)init:(NSString*)content;
 
 + (void)hideLoading;
 
