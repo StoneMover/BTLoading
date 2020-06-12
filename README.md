@@ -9,10 +9,12 @@
 ![Untitled.gif](https://upload-images.jianshu.io/upload_images/1243802-5df740b9069b25f2.gif?imageMogr2/auto-orient/strip)
 
 
-# 如何使用
+## 如何使用
 ```
 pod install 'BTLoading'
 ```
+
+或者导入```Classes```文件夹下所有类即可
 
 ## Toast文字提示
 
@@ -38,7 +40,7 @@ pod install 'BTLoading'
 [BTToast showErrorInfo:@"既然你并没有犯错"];
 ```
 
-## BTProgress加载提示
+## Progress加载提示
 
 
 无文字loading
@@ -82,7 +84,7 @@ pod install 'BTLoading'
 - (void)show:(UIView*)view;
 ```
 
-##BTLoadingView
+## BTLoadingView
 
 在```vc```中使用
 
@@ -133,4 +135,48 @@ self.loadingHelp.autoresizingMask=UIViewAutoresizingFlexibleWidth|UIViewAutoresi
 [self.loadingHelp dismiss];
 ```
 
+### BTLoadingConfig
+
+进行Loading相关的配置
+
+```
+[BTLoadingConfig share].loadingStr = @"loading....";
+```
+
+配置属性
+
+```
+//默认加载中的文字
+@property (nonatomic, strong) NSString * loadingStr;
+
+//默认空数据的提示文字
+@property (nonatomic, strong) NSString * emptyStr;
+
+//默认界面错误的提示文字
+@property (nonatomic, strong) NSString * errorInfo;
+
+//默认加载中的图片，为gif
+@property (nonatomic, strong) UIImage * loadingGif;
+
+//空数据显示的图片
+@property (nonatomic, strong) UIImage * emptyImg;
+
+//错误界面现实的图片
+@property (nonatomic, strong) UIImage * errorImg;
+```
+
+配置自定义```view```
+
+实现以下```block```返回你自己继承于```BTLoadingSubView```的对象
+
+```
+//自定义加载中的界面,需要每次都生成一个新的对象，默认为BTLoadingSubView
+@property (nonatomic, copy) BTLoadingSubView * (^customLoadingViewBlock)(void);
+
+//自定义空界面,需要每次都生成一个新的对象，默认为BTLoadingSubView
+@property (nonatomic, copy) BTLoadingSubView * (^customEmptyViewBlock)(void);
+
+//自定义错误的界面,需要每次都生成一个新的对象，默认为BTLoadingSubView
+@property (nonatomic, copy) BTLoadingSubView * (^customErrorViewBlock)(void);
+```
 
