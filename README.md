@@ -1,12 +1,12 @@
 # BTLoading
 
-一个使用简单的加载中组件，虽然已经有了
+一个使用简单的加载中组件
 
 * 拥有简单的```Toast```文字提示
 *  菊花加载```loading```
 *  详情界面请求挡板```loading```
 
-[Untitled.gif](https://upload-images.jianshu.io/upload_images/1243802-5df740b9069b25f2.gif?imageMogr2/auto-orient/strip)
+![Untitled.gif](https://upload-images.jianshu.io/upload_images/1243802-5df740b9069b25f2.gif?imageMogr2/auto-orient/strip)
 
 
 # 如何使用
@@ -20,7 +20,6 @@ pod install 'BTLoading'
 
 ```
 [BTToast show:@"Hello World"];
-
 ```
 成功提示
 
@@ -37,7 +36,6 @@ pod install 'BTLoading'
 
 ```
 [BTToast showErrorInfo:@"既然你并没有犯错"];
-
 ```
 
 ## BTProgress加载提示
@@ -48,7 +46,6 @@ pod install 'BTLoading'
 ```
 [BTProgress showLoading:@""];
 [BTProgress showLoading:nil];
-
 ```
 
 
@@ -70,7 +67,6 @@ pod install 'BTLoading'
 
 ```
 + (BTProgress*)showLoading:(NSString*)str forceCloseLast:(BOOL)forceCloseLast;
-
 ```
 
 消失
@@ -84,7 +80,6 @@ pod install 'BTLoading'
 ```
 - (instancetype)init:(NSString*)content;
 - (void)show:(UIView*)view;
-
 ```
 
 ##BTLoadingView
@@ -99,7 +94,6 @@ pod install 'BTLoading'
 - (void)initLoading;
 - (void)initLoading:(CGRect)rect;
 - (void)initLoading:(CGRect)rect isLoading:(BOOL)isLoading;
-
 ```
 
 相关方法
@@ -123,7 +117,6 @@ self.loadingHelp.block = ^{
 };
 self.loadingHelp.autoresizingMask=UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 [self.view addSubview:self.loadingHelp];
-
 ```
 
 相关方法
@@ -138,7 +131,6 @@ self.loadingHelp.autoresizingMask=UIViewAutoresizingFlexibleWidth|UIViewAutoresi
 [self.loadingHelp showError:@"服务器开小差了^_^"];
 
 [self.loadingHelp dismiss];
-
 ```
 
 
