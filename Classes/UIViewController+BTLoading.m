@@ -22,45 +22,45 @@ static const char BTLoadingHelpKey;
     return objc_getAssociatedObject(self, &BTLoadingHelpKey);
 }
 
-- (void)initLoading;{
-    [self initLoading:self.view.bounds];
+- (void)bt_initLoading;{
+    [self bt_initLoading:self.view.bounds];
 }
-- (void)initLoading:(CGRect)rect{
-    [self initLoading:rect isLoading:YES];
+- (void)bt_initLoading:(CGRect)rect{
+    [self bt_initLoading:rect isLoading:YES];
 }
-- (void)initLoading:(CGRect)rect isLoading:(BOOL)isLoading{
+- (void)bt_initLoading:(CGRect)rect isLoading:(BOOL)isLoading{
     __weak UIViewController * weakSelf=self;
     self.loadingHelp=[[BTLoadingView alloc]initWithFrame:rect];
     self.loadingHelp.block = ^{
-        [weakSelf reload];
+        [weakSelf bt_loadingReload];
     };
     self.loadingHelp.autoresizingMask=UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.loadingHelp];
     if(isLoading){
-        [self showLoading];
+        [self bt_showLoading];
     }else{
         [self.loadingHelp dismiss:NO];
     }
 }
 
-- (void)showLoading{
+- (void)bt_showLoading{
     [self.loadingHelp showLoading];
 }
-- (void)showEmpty{
+- (void)bt_showEmpty{
     [self.loadingHelp showEmpty];
 }
-- (void)showNetError{
+- (void)bt_showNetError{
     [self.loadingHelp showError];
 }
-- (void)showServerError{
+- (void)bt_showServerError{
     [self.loadingHelp showError:@"服务器开小差了^_^"];
 }
 
-- (void)reload{
-    [self showLoading];
+- (void)bt_loadingReload{
+    [self bt_showLoading];
 }
 
-- (void)dismiss{
+- (void)bt_loadingDismiss{
     [self.loadingHelp dismiss];
 }
 

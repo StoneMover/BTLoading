@@ -46,9 +46,9 @@
                   ];
     
     //    [self.tableView registerNib:[UINib nibWithNibName:@"UITableViewCell" bundle:nil] forCellReuseIdentifier:@"UITableViewCellId"];
-    [self initLoading];
+    [self bt_initLoading];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self showEmpty];
+        [self bt_showEmpty];
     });
     
     
@@ -85,17 +85,17 @@
             break;
         case 4:
         {
-            [self showLoading];
+            [self bt_showLoading];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self dismiss];
+                [self bt_loadingDismiss];
             });
         }
             break;
         case 5:
-            [self showNetError];
+            [self bt_showNetError];
             break;
         case 6:
-            [self showEmpty];
+            [self bt_showEmpty];
             break;
         case 7:
         {
@@ -128,11 +128,12 @@
     return 50;
 }
 
-- (void)reload{
-    [super reload];
+- (void)bt_loadingReload{
+    [super bt_loadingReload];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self dismiss];
+        [self bt_loadingDismiss];
     });
 }
+
 
 @end

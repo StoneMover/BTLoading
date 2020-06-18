@@ -13,16 +13,16 @@
 
 @property (nonatomic, strong) BTLoadingView * loadingHelp;
 
-- (void)initLoading;
-- (void)initLoading:(CGRect)rect;
-- (void)initLoading:(CGRect)rect isLoading:(BOOL)isLoading;
+- (void)bt_initLoading;
+- (void)bt_initLoading:(CGRect)rect;
+- (void)bt_initLoading:(CGRect)rect isLoading:(BOOL)isLoading;
 
-- (void)showLoading;
-- (void)showEmpty;
-- (void)showNetError;
-- (void)showServerError;
+- (void)bt_showLoading;
+- (void)bt_showEmpty;
+- (void)bt_showNetError;
+- (void)bt_showServerError;
 
-- (void)dismiss;
-- (void)reload;
+- (void)bt_loadingDismiss;
+- (void)bt_loadingReload;
 
 @end
