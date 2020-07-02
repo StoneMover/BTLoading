@@ -26,6 +26,8 @@
 
 @property (nonatomic, weak) id<BTLoadingHelpDelegate> delegate;
 
+#pragma mark BTLoadingView相关设置
+
 //默认加载中的文字
 @property (nonatomic, strong) NSString * loadingStr;
 

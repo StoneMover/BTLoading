@@ -29,6 +29,8 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
 
 @property (nonatomic, strong) UIView * rootView;
 
+@property (nonatomic, assign) CGFloat yOffset;
+
 
 @end
 
@@ -41,10 +43,40 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
 }
 
 + (BTToast*)show:(NSString*)str img:(UIImage*)img{
+    return [self show:str img:img isInVc:NO];
+}
+
++ (BTToast*)show:(NSString*)str img:(UIImage*)img isInVc:(BOOL)isInVc{
     BTToast * toast=[[BTToast alloc] init:BTToastStyleCenter str:str img:img];
-    UIWindow * window=[UIApplication sharedApplication].delegate.window;
-    [toast show:window];
+    if (isInVc) {
+        UIWindow * window = [UIApplication sharedApplication].delegate.window;
+        UIViewController * currentVc = [self getToastCurrentVCFrom:window.rootViewController];
+        if (currentVc.navigationController.navigationBar.isHidden) {
+            [toast show:currentVc.view yOffset:0];
+        }else{
+            [toast show:currentVc.view yOffset:(-[[UIApplication sharedApplication] statusBarFrame].size.height + 44)/2];
+        }
+    }else{
+        UIWindow * window = [UIApplication sharedApplication].delegate.window;
+        [toast show:window];
+    }
     return toast;
+}
+
++ (UIViewController *)getToastCurrentVCFrom:(UIViewController *)rootVc
+{
+    UIViewController *currentVC;
+    if ([rootVc presentedViewController]) {
+        rootVc = [rootVc presentedViewController];
+    }
+    if ([rootVc isKindOfClass:[UITabBarController class]]) {
+        currentVC = [self getToastCurrentVCFrom:[(UITabBarController *)rootVc selectedViewController]];
+    } else if ([rootVc isKindOfClass:[UINavigationController class]]){
+        currentVC = [self getToastCurrentVCFrom:[(UINavigationController *)rootVc visibleViewController]];
+    } else {
+        currentVC = rootVc;
+    }
+    return currentVC;
 }
 
 + (BTToast*)showSuccess:(NSString*)str{
@@ -76,6 +108,41 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
         return [self showErrorInfo:errorInfo];
     }
 }
+
++ (BTToast*)showVc:(NSString*)str{
+    return [self show:str img:nil isInVc:YES];
+}
+
++ (BTToast*)showVcSuccess:(NSString*)str{
+    return [self show:str img:[[BTLoadingConfig share]imageBundleName:@"bt_toast_success"] isInVc:YES];
+}
+
++ (BTToast*)showVcWarning:(NSString*)str{
+    return [self show:str img:[[BTLoadingConfig share]imageBundleName:@"bt_toast_warning"] isInVc:YES];
+}
+
++ (BTToast*)showVcErrorInfo:(NSString*)info{
+    return [self show:info img:[[BTLoadingConfig share]imageBundleName:@"bt_toast_error"] isInVc:YES];
+}
+
++ (BTToast*)showVcErrorObj:(NSError*)error{
+    NSString * info=nil;
+    if ([error.userInfo.allKeys containsObject:@"NSLocalizedDescription"]) {
+        info=[error.userInfo objectForKey:@"NSLocalizedDescription"];
+    }else {
+        info=error.domain;
+    }
+    return [self showVcErrorInfo:info];
+}
+
++ (BTToast*)showVcErrorObj:(NSError *)error errorInfo:(NSString*)errorInfo{
+    if (error) {
+        return [self showVcErrorObj:error];
+    }else{
+        return [self showVcErrorInfo:errorInfo];
+    }
+}
+
 
 #pragma mark init
 - (instancetype)init:(BTToastStyle)style str:(NSString*)str img:(UIImage*)img{
@@ -151,7 +218,7 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
     }
     
     self.rootView.frame=CGRectMake(0,0,totalW,totalH);
-    self.rootView.center=CGPointMake(self.frame.size.width/2, (self.frame.size.height-[BTLoadingConfig share].keyboardHeight)/2);
+    self.rootView.center=CGPointMake(self.frame.size.width/2, (self.frame.size.height-[BTLoadingConfig share].keyboardHeight)/2 - self.yOffset);
     
     if (self.imgViewType) {
         self.imgViewType.frame=CGRectMake(totalW/2-self.imgViewType.frame.size.width/2,
@@ -174,7 +241,11 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
 
 #pragma mark 显示
 - (void)show:(UIView *)rootView{
-    
+    [self show:rootView yOffset:0];
+}
+
+- (void)show:(UIView *)rootView yOffset:(CGFloat)yOffset{
+    self.yOffset = yOffset;
     for (UIView * view in rootView.subviews) {
         if ([view isKindOfClass:[BTToast class]]) {
             view.hidden=YES;
@@ -195,13 +266,6 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
             }];
         });
     }];
-    //    [UIView animateWithDuration:.5 animations:^{
-    //
-    //    } completion:^(BOOL finished) {
-    //
-    //    }];
-    
-    
 }
 
 #pragma mark 相关方法

@@ -72,7 +72,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
         case 0:
-            [BTToast show:@"Hello World"];
+            [BTToast showVc:@"Hello World"];
             break;
         case 1:
             [BTToast showSuccess:@"发送成功~"];
