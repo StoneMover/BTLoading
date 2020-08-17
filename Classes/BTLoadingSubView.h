@@ -6,7 +6,11 @@
 //  Copyright © 2019 stonemover. All rights reserved.
 //
 
+
+
 #import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BTLoadingSubView : UIView
 
@@ -35,7 +39,7 @@
 
 - (void)initSubView;
 
-- (void)show:(NSString*)title img:(UIImage*)img btnStr:(NSString*)btnStr;
+- (void)show:(NSString*_Nullable)title img:(UIImage*_Nullable)img btnStr:(NSString*_Nullable)btnStr;
 
 - (void)createLabel;
 
@@ -45,3 +49,5 @@
 
 
 @end
+
+NS_ASSUME_NONNULL_END

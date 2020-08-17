@@ -86,10 +86,10 @@
 -(void)showLoading{
     [self showLoading:nil];
 }
--(void)showLoading:(NSString*)loadingStr{
+-(void)showLoading:(NSString*_Nullable)loadingStr{
     [self showLoading:loadingStr withImg:nil];
 }
--(void)showLoading:(NSString*)loadingStr withImg:(UIImage*)img{
+-(void)showLoading:(NSString*_Nullable)loadingStr withImg:(UIImage*_Nullable)img{
     self.viewLoading.hidden=NO;
     self.viewEmpty.hidden=YES;
     self.viewError.hidden=YES;
@@ -104,15 +104,15 @@
     [self showEmpty:nil];
 }
 
--(void)showEmpty:(NSString*)emptyStr{
+-(void)showEmpty:(NSString*_Nullable)emptyStr{
     [self showEmpty:emptyStr withImg:nil];
 }
 
--(void)showEmpty:(NSString*)emptyStr withImg:(UIImage*)img{
+-(void)showEmpty:(NSString*_Nullable)emptyStr withImg:(UIImage*_Nullable)img{
     [self showEmpty:emptyStr withImg:img btnStr:nil];
 }
 
--(void)showEmpty:(NSString*)emptyStr withImg:(UIImage*)img btnStr:(NSString*)btnStr{
+-(void)showEmpty:(NSString*_Nullable)emptyStr withImg:(UIImage*_Nullable)img btnStr:(NSString*_Nullable)btnStr{
     self.viewEmpty.hidden=NO;
     self.viewLoading.hidden=YES;
     self.viewError.hidden=YES;
@@ -127,15 +127,15 @@
     [self showError:nil];
 }
 
--(void)showError:(NSString*)errorStr{
+-(void)showError:(NSString*_Nullable)errorStr{
     [self showError:errorStr withImg:nil];
 }
 
--(void)showError:(NSString*)errorStr withImg:(UIImage*)img{
+-(void)showError:(NSString*_Nullable)errorStr withImg:(UIImage*_Nullable)img{
     [self showError:errorStr withImg:img btnStr:nil];
 }
 
--(void)showError:(NSString*)errorStr withImg:(UIImage*)img btnStr:(NSString*)btnStr{
+-(void)showError:(NSString*_Nullable)errorStr withImg:(UIImage*_Nullable)img btnStr:(NSString*_Nullable)btnStr{
     self.viewError.hidden=NO;
     self.viewLoading.hidden=YES;
     self.viewEmpty.hidden=YES;
@@ -146,21 +146,26 @@
 
 
 #pragma mark NSError type
-- (void)showErrorObj:(NSError*)error withImg:(UIImage*)img{
+- (void)showErrorObj:(NSError*_Nullable)error withImg:(UIImage*_Nullable)img{
     NSString * info=nil;
-    if ([error.userInfo.allKeys containsObject:@"NSLocalizedDescription"]) {
-        info=[error.userInfo objectForKey:@"NSLocalizedDescription"];
-    }else {
-        info=error.domain;
+    if (error == nil) {
+        info = @"错误:error对象为空";
+    }else{
+        if ([error.userInfo.allKeys containsObject:@"NSLocalizedDescription"]) {
+            info=[error.userInfo objectForKey:@"NSLocalizedDescription"];
+        }else {
+            info=error.domain;
+        }
     }
+    
     [self showError:info withImg:img];
 }
 
-- (void)showErrorObj:(NSError*)error{
+- (void)showErrorObj:(NSError*_Nullable)error{
     [self showErrorObj:error withImg:nil];
 }
 
-- (void)showError:(NSError*)error errorStr:(NSString*)errorStr{
+- (void)showError:(NSError*_Nullable)error errorStr:(NSString*_Nullable)errorStr{
     if (error) {
         [self showErrorObj:error];
     }else{

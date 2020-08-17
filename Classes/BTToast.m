@@ -38,15 +38,15 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
 @implementation BTToast
 
 
-+ (BTToast*)show:(NSString*)str{
++ (BTToast*)show:(NSString*_Nullable)str{
     return [self show:str img:nil];
 }
 
-+ (BTToast*)show:(NSString*)str img:(UIImage*)img{
++ (BTToast*)show:(NSString*_Nullable)str img:(UIImage*_Nullable)img{
     return [self show:str img:img isInVc:NO];
 }
 
-+ (BTToast*)show:(NSString*)str img:(UIImage*)img isInVc:(BOOL)isInVc{
++ (BTToast*)show:(NSString*_Nullable)str img:(UIImage*_Nullable)img isInVc:(BOOL)isInVc{
     BTToast * toast=[[BTToast alloc] init:BTToastStyleCenter str:str img:img];
     if (isInVc) {
         UIWindow * window = [UIApplication sharedApplication].delegate.window;
@@ -79,19 +79,22 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
     return currentVC;
 }
 
-+ (BTToast*)showSuccess:(NSString*)str{
++ (BTToast*)showSuccess:(NSString*_Nullable)str{
     return [self show:str img:[[BTLoadingConfig share]imageBundleName:@"bt_toast_success"]];
 }
 
-+ (BTToast*)showWarning:(NSString*)str{
++ (BTToast*)showWarning:(NSString*_Nullable)str{
     return [self show:str img:[[BTLoadingConfig share]imageBundleName:@"bt_toast_warning"]];
 }
 
-+ (BTToast*)showErrorInfo:(NSString*)info{
++ (BTToast*)showErrorInfo:(NSString*_Nullable)info{
     return [self show:info img:[[BTLoadingConfig share]imageBundleName:@"bt_toast_error"]];
 }
 
-+ (BTToast*)showErrorObj:(NSError*)error{
++ (BTToast*)showErrorObj:(NSError*_Nullable)error{
+    if (error == nil) {
+        return [self showErrorInfo:@"错误:error对象为空"];
+    }
     NSString * info=nil;
     if ([error.userInfo.allKeys containsObject:@"NSLocalizedDescription"]) {
         info=[error.userInfo objectForKey:@"NSLocalizedDescription"];
@@ -101,7 +104,7 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
     return [self showErrorInfo:info];
 }
 
-+ (BTToast*)showErrorObj:(NSError *)error errorInfo:(NSString*)errorInfo{
++ (BTToast*)showErrorObj:(NSError *_Nullable)error errorInfo:(NSString*_Nullable)errorInfo{
     if (error) {
         return [self showErrorObj:error];
     }else{
@@ -109,23 +112,26 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
     }
 }
 
-+ (BTToast*)showVc:(NSString*)str{
++ (BTToast*)showVc:(NSString*_Nullable)str{
     return [self show:str img:nil isInVc:YES];
 }
 
-+ (BTToast*)showVcSuccess:(NSString*)str{
++ (BTToast*)showVcSuccess:(NSString*_Nullable)str{
     return [self show:str img:[[BTLoadingConfig share]imageBundleName:@"bt_toast_success"] isInVc:YES];
 }
 
-+ (BTToast*)showVcWarning:(NSString*)str{
++ (BTToast*)showVcWarning:(NSString*_Nullable)str{
     return [self show:str img:[[BTLoadingConfig share]imageBundleName:@"bt_toast_warning"] isInVc:YES];
 }
 
-+ (BTToast*)showVcErrorInfo:(NSString*)info{
++ (BTToast*)showVcErrorInfo:(NSString*_Nullable)info{
     return [self show:info img:[[BTLoadingConfig share]imageBundleName:@"bt_toast_error"] isInVc:YES];
 }
 
-+ (BTToast*)showVcErrorObj:(NSError*)error{
++ (BTToast*)showVcErrorObj:(NSError*_Nullable)error{
+    if (error == nil) {
+        return [self showErrorInfo:@"错误:error对象为空"];
+    }
     NSString * info=nil;
     if ([error.userInfo.allKeys containsObject:@"NSLocalizedDescription"]) {
         info=[error.userInfo objectForKey:@"NSLocalizedDescription"];
@@ -135,7 +141,7 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
     return [self showVcErrorInfo:info];
 }
 
-+ (BTToast*)showVcErrorObj:(NSError *)error errorInfo:(NSString*)errorInfo{
++ (BTToast*)showVcErrorObj:(NSError *_Nullable)error errorInfo:(NSString*_Nullable)errorInfo{
     if (error) {
         return [self showVcErrorObj:error];
     }else{
@@ -145,9 +151,12 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
 
 
 #pragma mark init
-- (instancetype)init:(BTToastStyle)style str:(NSString*)str img:(UIImage*)img{
+- (instancetype)init:(BTToastStyle)style str:(NSString*_Nullable)str img:(UIImage*_Nullable)img{
     self=[super initWithFrame:[UIScreen mainScreen].bounds];
     self.style=style;
+    if (str == nil) {
+        str = @"";
+    }
     self.contentStr=str;
     self.contentImg=img;
     self.backgroundColor=[UIColor clearColor];

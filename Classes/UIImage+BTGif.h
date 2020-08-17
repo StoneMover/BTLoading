@@ -12,11 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (BTGif)
 
-+ (UIImage *)bt_animatedGIFWithData:(NSData *)data;
++ (UIImage * _Nullable)bt_animatedGIFWithData:(NSData *)data;
 
-+ (UIImage *)bt_animatedGIFNamed:(NSString *)name bundle:(NSBundle*)b;
++ (UIImage * _Nullable)bt_animatedGIFNamed:(NSString *)name bundle:(NSBundle*)b;
 
-- (UIImage *)bt_animatedImageByScalingAndCroppingToSize:(CGSize)size;
+- (UIImage * _Nullable)bt_animatedImageByScalingAndCroppingToSize:(CGSize)size;
 
 
 @end

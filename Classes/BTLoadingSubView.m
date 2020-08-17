@@ -101,7 +101,7 @@
 }
 
 
-- (void)show:(NSString*)title img:(UIImage*)img btnStr:(NSString*)btnStr{
+- (void)show:(NSString*_Nullable)title img:(UIImage*_Nullable)img btnStr:(NSString*_Nullable)btnStr{
     if (title) {
         self.label.text=title;
     }

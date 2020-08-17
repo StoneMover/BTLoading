@@ -10,7 +10,7 @@
 
 @implementation UIImage (BTGif)
 
-+ (UIImage *)bt_animatedGIFWithData:(NSData *)data {
++ (UIImage *_Nullable)bt_animatedGIFWithData:(NSData *)data {
     if (!data) {
         return nil;
     }
@@ -51,7 +51,7 @@
     return animatedImage;
 }
 
-+ (UIImage *)bt_animatedGIFNamed:(NSString *)name bundle:(NSBundle*)b{
++ (UIImage *_Nullable)bt_animatedGIFNamed:(NSString *)name bundle:(NSBundle*)b{
     CGFloat scale = [UIScreen mainScreen].scale;
     NSString * resourcePath=[b resourcePath];
     NSString * bundlePath=[resourcePath stringByAppendingPathComponent:@"BTLoadingBundle.bundle"];
@@ -89,7 +89,7 @@
     }
 }
 
-- (UIImage *)bt_animatedImageByScalingAndCroppingToSize:(CGSize)size {
+- (UIImage *_Nullable)bt_animatedImageByScalingAndCroppingToSize:(CGSize)size {
     if (CGSizeEqualToSize(self.size, size) || CGSizeEqualToSize(size, CGSizeZero)) {
         return self;
     }

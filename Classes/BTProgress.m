@@ -32,7 +32,7 @@
 }
 */
 
-+ (BTProgress*)showLoading:(NSString*)str forceCloseLast:(BOOL)forceCloseLast{
++ (BTProgress*)showLoading:(NSString*_Nullable)str forceCloseLast:(BOOL)forceCloseLast{
     if (forceCloseLast) {
         BTProgress * progress=[[BTProgress alloc]init:str];
         UIWindow * window=[UIApplication sharedApplication].delegate.window;
@@ -61,7 +61,7 @@
     
 }
 
-+ (BTProgress*)showLoading:(NSString*)str{
++ (BTProgress*)showLoading:(NSString*_Nullable)str{
     return [self showLoading:str forceCloseLast:YES];
 }
 
@@ -73,7 +73,7 @@
     return [self showLoading:nil forceCloseLast:NO];
 }
 
-+ (BTProgress*)showLoadingFollow:(NSString*)str{
++ (BTProgress*)showLoadingFollow:(NSString*_Nullable)str{
     return [self showLoading:str forceCloseLast:NO];
 }
 
@@ -86,7 +86,7 @@
     }
 }
 
-- (instancetype)init:(NSString*)content{
+- (instancetype)init:(NSString*_Nullable)content{
     self=[super init];
     self.content=content;
     if (self.content.length==0) {
