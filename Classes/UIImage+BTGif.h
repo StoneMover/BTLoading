@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIImage * _Nullable)bt_animatedGIFWithData:(NSData *)data;
 
++ (UIImage *_Nullable)bt_animatedGIFWithData:(NSData *)data scale:(NSInteger)scale;
+
 + (UIImage * _Nullable)bt_animatedGIFNamed:(NSString *)name bundle:(NSBundle*)b;
 
 - (UIImage * _Nullable)bt_animatedImageByScalingAndCroppingToSize:(CGSize)size;

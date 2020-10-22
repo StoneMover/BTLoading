@@ -51,6 +51,47 @@
     return animatedImage;
 }
 
++ (UIImage *_Nullable)bt_animatedGIFWithData:(NSData *)data scale:(NSInteger)scale{
+    if (!data) {
+        return nil;
+    }
+
+    CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
+
+    size_t count = CGImageSourceGetCount(source);
+
+    UIImage *animatedImage;
+
+    if (count <= 1) {
+        animatedImage = [[UIImage alloc] initWithData:data];
+    }
+    else {
+        NSMutableArray *images = [NSMutableArray array];
+
+        NSTimeInterval duration = 0.0f;
+
+        for (size_t i = 0; i < count; i++) {
+            CGImageRef image = CGImageSourceCreateImageAtIndex(source, i, NULL);
+
+            duration += [self bt_frameDurationAtIndex:i source:source];
+
+            [images addObject:[UIImage imageWithCGImage:image scale:scale orientation:UIImageOrientationUp]];
+
+            CGImageRelease(image);
+        }
+
+        if (!duration) {
+            duration = (1.0f / 10.0f) * count;
+        }
+
+        animatedImage = [UIImage animatedImageWithImages:images duration:duration];
+    }
+
+    CFRelease(source);
+
+    return animatedImage;
+}
+
 + (UIImage *_Nullable)bt_animatedGIFNamed:(NSString *)name bundle:(NSBundle*)b{
     CGFloat scale = [UIScreen mainScreen].scale;
     NSString * resourcePath=[b resourcePath];
