@@ -62,15 +62,27 @@ static BTLoadingConfig * help=nil;
 
 - (void)initDefaultView{
     self.customLoadingViewBlock = ^BTLoadingSubView * _Nonnull{
-        return [[BTLoadingSubView alloc] init];
+        BTLoadingSubView * subView = [[BTLoadingSubView alloc] init];
+        [subView initSubView];
+        subView.label.text = BTLoadingConfig.share.loadingStr;
+        subView.imgView.image = BTLoadingConfig.share.loadingGif;
+        return subView;
     };
     
     self.customEmptyViewBlock = ^BTLoadingSubView * _Nonnull{
-        return [[BTLoadingSubView alloc] init];
+        BTLoadingSubView * subView = [[BTLoadingSubView alloc] init];
+        [subView initSubView];
+        subView.label.text = BTLoadingConfig.share.emptyStr;
+        subView.imgView.image = BTLoadingConfig.share.emptyImg;
+        return subView;
     };
     
     self.customErrorViewBlock = ^BTLoadingSubView * _Nonnull{
-        return [[BTLoadingSubView alloc] init];
+        BTLoadingSubView * subView = [[BTLoadingSubView alloc] init];
+        [subView initSubView];
+        subView.label.text = BTLoadingConfig.share.errorInfo;
+        subView.imgView.image = BTLoadingConfig.share.errorImg;
+        return subView;
     };
     
 }

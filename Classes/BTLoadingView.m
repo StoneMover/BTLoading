@@ -32,41 +32,12 @@
 }
 
 - (void)initSelf{
-    __weak BTLoadingView * weakSelf=self;
     self.viewLoading=[BTLoadingConfig share].customLoadingViewBlock();
-    self.viewLoading.frame=self.bounds;
-    [self.viewLoading initSubView];
-    self.viewLoading.clickBlock = ^{
-        [weakSelf reloadClick];
-    };
-    self.viewLoading.label.text=[BTLoadingConfig share].loadingStr;
-    self.viewLoading.imgView.image=[BTLoadingConfig share].loadingGif;
-    self.viewLoading.btn.hidden=YES;
-    [self addSubview:self.viewLoading];
-    
     self.viewEmpty=[BTLoadingConfig share].customEmptyViewBlock();
-    self.viewEmpty.frame=self.bounds;
-    [self.viewEmpty initSubView];
-    self.viewEmpty.clickBlock = ^{
-        [weakSelf reloadClick];
-    };
-    self.viewEmpty.label.text=[BTLoadingConfig share].emptyStr;
-    self.viewEmpty.imgView.image=[BTLoadingConfig share].emptyImg;
-    
-    [self addSubview:self.viewEmpty];
-    
-    
     self.viewError=[BTLoadingConfig share].customErrorViewBlock();
-    self.viewError.frame=self.bounds;
-    self.viewError.clickBlock = ^{
-        [weakSelf reloadClick];
-    };
-    [self.viewError initSubView];
-    self.viewError.label.text=[BTLoadingConfig share].errorInfo;
-    self.viewError.imgView.image=[BTLoadingConfig share].errorImg;
-    
-    [self addSubview:self.viewError];
 }
+
+
 
 - (void)layoutSubviews{
     self.viewLoading.frame=self.bounds;
@@ -192,7 +163,52 @@
     }
 }
 
+- (void)setViewLoading:(BTLoadingSubView *)viewLoading{
+    if (self.viewLoading) {
+        [self.viewLoading removeFromSuperview];
+    }
+    __weak BTLoadingView * weakSelf=self;
+    _viewLoading = viewLoading;
+    self.viewLoading.frame=self.bounds;
+    self.viewLoading.clickBlock = ^{
+        [weakSelf reloadClick];
+    };
+    self.viewLoading.btn.hidden=YES;
+    [self addSubview:self.viewLoading];
+    
+}
 
+- (void)setViewEmpty:(BTLoadingSubView *)viewEmpty{
+    if (self.viewEmpty) {
+        [self.viewEmpty removeFromSuperview];
+    }
+    
+    _viewEmpty = viewEmpty;
+    __weak BTLoadingView * weakSelf=self;
+    self.viewEmpty.frame=self.bounds;
+    self.viewEmpty.clickBlock = ^{
+        [weakSelf reloadClick];
+    };
+    [self addSubview:self.viewEmpty];
+}
+
+- (void)setViewError:(BTLoadingSubView *)viewError{
+    if (self.viewError) {
+        [self.viewError removeFromSuperview];
+    }
+    
+    _viewError = viewError;
+    __weak BTLoadingView * weakSelf=self;
+    self.viewError.frame=self.bounds;
+    self.viewError.clickBlock = ^{
+        [weakSelf reloadClick];
+    };
+    self.viewError.label.text=[BTLoadingConfig share].errorInfo;
+    self.viewError.imgView.image=[BTLoadingConfig share].errorImg;
+    
+    [self addSubview:self.viewError];
+    
+}
 
 
 @end
