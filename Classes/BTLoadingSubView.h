@@ -62,7 +62,12 @@ NS_ASSUME_NONNULL_BEGIN
 //点击按钮后的回调
 @property (nonatomic, copy) void(^clickBlock)(void);
 
-//在配置了上方信息后调用此方法初始化，会依次调用下面三个方法
+//是否自己进行布局，注意控件的translatesAutoresizingMaskIntoConstraints为NO
+@property (nonatomic, assign) BOOL isLayoutSelf;
+
+/**
+ 在配置了上方信息后调用此方法初始化，会依次调用下面三个方法，需要先调用createLabel方法，其它两个控件基于该控件布局
+ */
 - (void)initSubView;
 
 - (void)createLabel;
