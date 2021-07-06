@@ -48,6 +48,9 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
 
 + (BTToast*)show:(NSString*_Nullable)str img:(UIImage*_Nullable)img isInVc:(BOOL)isInVc{
     BTToast * toast=[[BTToast alloc] init:BTToastStyleCenter str:str img:img];
+    if (str == nil || str.length == 0) {
+        return toast;
+    }
     if (isInVc) {
         UIWindow * window = [UIApplication sharedApplication].delegate.window;
         UIViewController * currentVc = [self getToastCurrentVCFrom:window.rootViewController];
