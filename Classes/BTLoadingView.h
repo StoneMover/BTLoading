@@ -16,11 +16,11 @@ typedef void(^BTLoadingBlock)(void);
 
 @interface BTLoadingView : UIView
 
-@property (nonatomic, strong) BTLoadingSubView * viewLoading;
+@property (nonatomic, strong) BTLoadingSubView * _Nullable viewLoading;
 
-@property (nonatomic, strong) BTLoadingSubView * viewEmpty;
+@property (nonatomic, strong) BTLoadingSubView * _Nullable viewEmpty;
 
-@property (nonatomic, strong) BTLoadingSubView * viewError;
+@property (nonatomic, strong) BTLoadingSubView * _Nullable viewError;
 
 #pragma mark 显示加载中界面
 -(void)showLoading;
